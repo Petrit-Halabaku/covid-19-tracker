@@ -16,11 +16,13 @@ const Cards = ({ data: { confirmed, recovered, deaths, lastUpdate } }) => {
   } else {
     return (
       <>
-        <Grid container spacing={3} justify="center">
+      {/* ------------------ */}
+        <Grid container  justify="center">
           <Grid
             item
             component={Card}
             xs={12}
+            sm={8}
             md={3}
             className={cx(styles.card, styles.infected)}
           >
@@ -42,11 +44,12 @@ const Cards = ({ data: { confirmed, recovered, deaths, lastUpdate } }) => {
               <Typography variant="body2">avtive cases</Typography>
             </CardContent>
           </Grid>
-
+{/* --------------------- */}
           <Grid
             item
             component={Card}
             xs={12}
+            sm={8}
             md={3}
             className={cx(styles.card, styles.recovered)}
           >
@@ -68,11 +71,12 @@ const Cards = ({ data: { confirmed, recovered, deaths, lastUpdate } }) => {
               <Typography variant="body2">Number of Deaths</Typography>
             </CardContent>
           </Grid>
-
+{/* -------------------- */}
           <Grid
             item
             component={Card}
             xs={12}
+            sm={8}
             md={3}
             className={cx(styles.card, styles.deaths)}
           >
