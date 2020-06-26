@@ -1,38 +1,36 @@
 import React, { useState, useEffect } from "react";
-import { fetchDailyData } from "../../services/API";
+
+import { Container, Typography, Grid, CardContent } from "@material-ui/core";
+
+import { fetchDailyData } from "../../services/api";
+
+import styles from "./Charts.module.css";
 import { Line, Bar } from "react-chartjs-2";
 
-import styles from "./chart.module.css";
-
-const Chart = ({ data, country }) => {
+const Charts = ({ data, country }) => {
   const [dailyData, setDailyData] = useState([]);
 
   useEffect(() => {
-    // const fetchAPI = async () => {
-    //   setDailyData(await fetchDailyData());
-    // };
-    // fetchAPI();
-    fetchDailyData().then((item) => {
-      setDailyData(item);
+    fetchDailyData().then((data) => {
+      setDailyData(data);
     });
     console.log(dailyData);
-    // test();
-  });
+  }, []);
 
-  /* ------------------------------- line chart ------------------------------- */
-  const lineChart = dailyData[0] ? (
+  /* ------------------------------- line Chart ------------------------------- */
+  const lineChart = dailyData.length ? (
     <Line
       data={{
-        labels: dailyData.map(({ date }) => date),
+        labels: dailyData.map(({ reportDate }) => reportDate),
         datasets: [
           {
-            data: dailyData.map(({ confirmed }) => confirmed),
+            data: dailyData.map(({ confirmed }) => confirmed.total),
             label: "Infected",
             borderColor: "#3333ff",
             fill: true,
           },
           {
-            data: dailyData.map(({ deaths }) => deaths),
+            data: dailyData.map(({ deaths }) => deaths.total),
             label: "Deaths",
             borderColor: "red",
             backgroundColor: "rgba(255,0,0,0.5)",
@@ -97,8 +95,19 @@ const Chart = ({ data, country }) => {
   ) : null;
 
   return (
-    <div className={styles.container}>{country ? barChart : lineChart}</div>
+    <>
+      <Grid container justify="center">
+        <Grid item component="Card" xs={12} md={12}>
+          <CardContent>
+            <Typography className={styles.chart}>
+              {country ? barChart : lineChart}
+            </Typography>
+          </CardContent>
+        </Grid>
+      </Grid>
+      {/* </Grid> */}
+    </>
   );
 };
 
-export default Chart;
+export default Charts;
