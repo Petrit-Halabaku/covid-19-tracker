@@ -1,0 +1,5 @@
+@media only screen and (max-width: 762px) {
+  .chart {
+      width: 75%;
+  }
+}
